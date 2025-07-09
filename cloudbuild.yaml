@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/team-assistant-v2/staging-open-webui/open-webui:latest', '-f', 'Dockerfile', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/team-assistant-v2/staging-open-webui/open-webui:latest']
+images:
+- 'us-central1-docker.pkg.dev/team-assistant-v2/staging-open-webui/open-webui:latest'
