@@ -68,7 +68,7 @@ module "networking" {
   database_subnet_cidr        = var.database_subnet_cidr
   vpc_connector_min_instances = var.vpc_connector_min_instances
   vpc_connector_max_instances = var.vpc_connector_max_instances
-  enable_vpc_connector        = false # Temporarily disabled to avoid quota issues
+  enable_vpc_connector        = true # Temporarily disabled to avoid quota issues
 
   depends_on = [module.project_services]
 }
@@ -147,24 +147,7 @@ module "artifact_registry" {
   depends_on = [module.project_services]
 }
 
-# Cloud Build
-module "cloud_build" {
-  source                 = "../../modules/cloud-build"
-  project_id             = var.project_id
-  region                 = var.region
-  environment            = local.environment
-  repository_url         = var.repository_url
-  github_owner           = var.github_owner
-  github_repo            = var.github_repo
-  trigger_branch         = "main" # Use main branch
-  artifact_registry_url  = module.artifact_registry.repository_url
-  service_account_email  = module.iam.cloud_build_service_account_email
-  cloud_run_service_name = var.cloud_run_service_name
-  auto_deploy            = false # Disable auto-deployment for initial setup
-  enable_release_trigger = false # Disable release trigger for staging
 
-  depends_on = [module.artifact_registry, module.iam]
-}
 
 # Cloud Run Service
 module "cloud_run" {
@@ -215,11 +198,12 @@ module "cloud_run" {
   max_instances = var.cloud_run_max_instances
 
   # Network configuration (VPC connector conditionally enabled)
-  vpc_connector_name = module.networking.vpc_connector_name != null ? module.networking.vpc_connector_name : ""
+  vpc_connector_name = module.networking.vpc_connector_id
 
   # Service account
   service_account_email = module.iam.cloud_run_service_account_email
   labels                = local.common_labels
+  artifact_repository_name = "${local.environment}-${var.artifact_repository_name}"
 
   depends_on = [
     module.database,

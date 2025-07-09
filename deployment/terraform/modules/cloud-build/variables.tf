@@ -97,4 +97,10 @@ variable "release_tag_pattern" {
   description = "Tag pattern for release builds"
   type        = string
   default     = "v*"
-} 
+}
+
+variable "artifact_repository_name" {
+  description = "Name of the Artifact Registry repository"
+  type        = string
+}
+ 

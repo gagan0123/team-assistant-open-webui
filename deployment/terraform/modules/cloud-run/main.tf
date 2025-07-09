@@ -13,6 +13,8 @@ resource "google_cloud_run_v2_service" "openwebui" {
   location = var.region
   project  = var.project_id
 
+  
+
   template {
     labels = var.labels
 
@@ -154,3 +156,25 @@ resource "google_cloud_run_v2_service_iam_member" "authenticated_access" {
   role     = "roles/run.invoker"
   member   = "allAuthenticatedUsers"
 }
+
+data "google_artifact_registry_repository" "openwebui" {
+  location   = var.region
+  project    = var.project_id
+  repository_id = var.artifact_repository_name
+}
+
+
+
+resource "null_resource" "initial_image_build" {
+  triggers = {
+    build_trigger = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "gcloud builds submit --config=${path.module}/../../../../cloudbuild.yaml --project=${var.project_id} ${path.module}/../../../../"
+  }
+}
+
+
+
+

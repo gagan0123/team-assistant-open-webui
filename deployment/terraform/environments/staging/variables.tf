@@ -168,4 +168,53 @@ variable "labels" {
     environment = "staging"
     managed-by  = "terraform"
   }
-} 
+}
+
+variable "webui_name" {
+  description = "The name of the WebUI application"
+  type        = string
+  default     = "Open WebUI"
+}
+
+variable "custom_domain" {
+  description = "Custom domain for the application"
+  type        = string
+  default     = ""
+}
+
+variable "database_max_disk_size" {
+  description = "Maximum disk size for the database"
+  type        = number
+  default     = 100
+}
+
+variable "enable_high_availability" {
+  description = "Enable high availability for the database"
+  type        = bool
+  default     = false
+}
+
+variable "container_concurrency" {
+  description = "Container concurrency for Cloud Run"
+  type        = number
+  default     = 80
+}
+
+variable "timeout_seconds" {
+  description = "Timeout in seconds for Cloud Run"
+  type        = number
+  default     = 300
+}
+
+variable "enable_backup" {
+  description = "Enable backups"
+  type        = bool
+  default     = false
+}
+
+variable "backup_retention_days" {
+  description = "Backup retention in days"
+  type        = number
+  default     = 7
+}
+ 
