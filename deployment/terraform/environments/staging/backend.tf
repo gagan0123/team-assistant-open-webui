@@ -3,7 +3,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "team-assistant-v2-terraform-state"
+    bucket = "team-assistant-terraform-terraform-state"
     prefix = "open-webui/staging"
   }
 }
