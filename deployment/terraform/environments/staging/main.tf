@@ -192,10 +192,11 @@ module "cloud_run" {
   }
 
   # Resource configuration (staging sizing)
-  cpu_limit     = var.cloud_run_cpu_limit
-  memory_limit  = var.cloud_run_memory_limit
-  min_instances = var.cloud_run_min_instances
-  max_instances = var.cloud_run_max_instances
+  cpu_limit         = var.cloud_run_cpu_limit
+  memory_limit      = var.cloud_run_memory_limit
+  min_instances     = var.cloud_run_min_instances
+  max_instances     = var.cloud_run_max_instances
+  startup_cpu_boost = true
 
   # Network configuration (VPC connector conditionally enabled)
   vpc_connector_name = module.networking.vpc_connector_id

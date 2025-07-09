@@ -63,6 +63,7 @@ resource "google_cloud_run_v2_service" "openwebui" {
           cpu    = var.cpu_limit
           memory = var.memory_limit
         }
+        startup_cpu_boost = var.startup_cpu_boost
       }
 
       # Volume mounts for persistent storage

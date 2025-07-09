@@ -98,3 +98,9 @@ variable "artifact_repository_name" {
   description = "Name of the Artifact Registry repository"
   type        = string
 }
+
+variable "startup_cpu_boost" {
+  description = "Enable startup CPU boost for Cloud Run instances"
+  type        = bool
+  default     = false
+}
