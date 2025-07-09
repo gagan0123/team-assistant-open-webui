@@ -166,15 +166,7 @@ data "google_artifact_registry_repository" "openwebui" {
 
 
 
-resource "null_resource" "initial_image_build" {
-  triggers = {
-    build_trigger = timestamp()
-  }
 
-  provisioner "local-exec" {
-    command = "gcloud builds submit --config=${path.module}/../../../../cloudbuild.yaml --project=${var.project_id} ${path.module}/../../../../"
-  }
-}
 
 
 

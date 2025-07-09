@@ -132,6 +132,22 @@ variable "github_repo" {
   type        = string
 }
 
+variable "connection_resource_path" {
+  description = "Cloud Build V2 connection resource path"
+  type        = string
+}
+
+variable "repository_name" {
+  description = "Cloud Build V2 repository name"
+  type        = string
+}
+
+variable "branch_regex" {
+  description = "Branch regex for the Cloud Build trigger"
+  type        = string
+  default     = ".*"
+}
+
 # OAuth Configuration
 variable "google_oauth_client_id" {
   description = "Google OAuth client ID"
