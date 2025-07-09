@@ -30,7 +30,7 @@ redis_tier          = "STANDARD_HA"
 cloud_run_cpu_limit     = "2"
 cloud_run_memory_limit  = "4Gi"
 cloud_run_min_instances = 1
-cloud_run_max_instances = 10
+cloud_run_max_instances = 1
 uvicorn_workers        = "2"
 
 # Feature Flags
