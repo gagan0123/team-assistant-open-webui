@@ -13,8 +13,19 @@ variable "environment" {
   type        = string
 }
 
-variable "connection_resource_path" {
-  description = "Full resource path to the Cloud Build Connection"
+variable "connection_id" {
+  description = "The ID of the Cloud Build connection"
+  type        = string
+}
+
+variable "github_app_installation_id" {
+  description = "The installation ID of the GitHub App"
+  type        = number
+  sensitive   = true
+}
+
+variable "github_owner" {
+  description = "The owner of the GitHub repository"
   type        = string
 }
 

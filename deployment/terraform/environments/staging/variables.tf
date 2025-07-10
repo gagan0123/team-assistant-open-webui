@@ -132,9 +132,15 @@ variable "github_repo" {
   type        = string
 }
 
-variable "connection_resource_path" {
-  description = "Cloud Build V2 connection resource path"
+variable "connection_id" {
+  description = "Cloud Build V2 connection ID"
   type        = string
+}
+
+variable "github_app_installation_id" {
+  description = "The installation ID of the GitHub App"
+  type        = number
+  sensitive   = true
 }
 
 variable "repository_name" {

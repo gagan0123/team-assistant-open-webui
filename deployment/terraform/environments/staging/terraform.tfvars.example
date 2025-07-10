@@ -10,9 +10,10 @@ storage_bucket_name = "your-project-id-openwebui-staging-storage"
 repository_url = "https://github.com/your-org/your-repo"
 github_owner   = "your-org"
 github_repo    = "your-repo"
-connection_resource_path = "projects/your-gcp-project-id/locations/us-central1/connections/your-connection-id"
-repository_name          = "your-repo-name"
-branch_regex             = "ta-main"
+connection_id              = "your-connection-id"
+github_app_installation_id = 12345678
+repository_name            = "your-repo-name"
+branch_regex               = "ta-main-terraform"
 
 # OAuth Configuration (create these in Google Cloud Console)
 google_oauth_client_id     = "your-oauth-client-id.apps.googleusercontent.com"

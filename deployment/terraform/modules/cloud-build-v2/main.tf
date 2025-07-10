@@ -1,7 +1,20 @@
-resource "google_cloudbuildv2_repository" "openwebui_repo" {
-  name = var.repository_name
-  parent_connection = var.connection_resource_path
+resource "google_cloudbuildv2_connection" "github_connection" {
+  project  = var.project_id
   location = var.location
+  name     = var.connection_id
+
+  github_config {
+    app_installation_id = var.github_app_installation_id
+  }
+}
+
+resource "google_cloudbuildv2_repository" "openwebui_repo" {
+  project           = var.project_id
+  location          = var.location
+  name              = var.repository_name
+  parent_connection = google_cloudbuildv2_connection.github_connection.name
+
+  remote_uri = "https://github.com/${var.github_owner}/${var.repository_name}.git"
 }
 
 resource "google_cloudbuildv2_trigger" "openwebui_trigger" {

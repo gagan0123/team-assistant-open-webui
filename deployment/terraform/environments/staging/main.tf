@@ -149,14 +149,16 @@ module "artifact_registry" {
 
 # Cloud Build V2
 module "cloud_build_v2" {
-  source                   = "../../modules/cloud-build-v2"
-  project_id               = var.project_id
-  location                 = var.region
-  environment              = local.environment
-  connection_resource_path = var.connection_resource_path
-  repository_name          = var.repository_name
-  branch_regex             = var.branch_regex
-  artifact_registry_url    = module.artifact_registry.repository_url
+  source                     = "../../modules/cloud-build-v2"
+  project_id                 = var.project_id
+  location                   = var.region
+  environment                = local.environment
+  connection_id              = var.connection_id
+  github_app_installation_id = var.github_app_installation_id
+  github_owner               = var.github_owner
+  repository_name            = var.repository_name
+  branch_regex               = var.branch_regex
+  artifact_registry_url      = module.artifact_registry.repository_url
 
   depends_on = [module.project_services, module.artifact_registry]
 }
