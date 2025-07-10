@@ -17,33 +17,31 @@ resource "google_cloudbuildv2_repository" "openwebui_repo" {
   remote_uri = "https://github.com/${var.github_owner}/${var.repository_name}.git"
 }
 
-resource "google_cloudbuildv2_trigger" "openwebui_trigger" {
-  project = var.project_id
+resource "google_cloudbuild_trigger" "openwebui_trigger" {
+  project  = var.project_id
   location = var.location
-  name = "${var.environment}-openwebui-build-trigger"
+  name     = "${var.environment}-openwebui-build-trigger"
 
-  repository_event_config {
-    repository = google_cloudbuildv2_repository.openwebui_repo.id
+  github {
+    owner = var.github_owner
+    name  = var.repository_name
     pull_request {
-      branch_regex = var.branch_regex
-      // For PRs, we typically want to build and test, but not deploy
-      // auto_deploy = false 
+      branch = var.branch_regex
     }
   }
 
-  build_config {
-    # Use the cloudbuild.yaml in the root of the repository
+  build {
     source {
       repo_source {
-        dir = "."
+        repo_name   = var.repository_name
         branch_name = var.branch_regex
       }
     }
-    steps {
+    step {
       name = "gcr.io/cloud-builders/docker"
       args = ["build", "-t", "${var.artifact_registry_url}/open-webui:latest", "."]
     }
-    steps {
+    step {
       name = "gcr.io/cloud-builders/docker"
       args = ["push", "${var.artifact_registry_url}/open-webui:latest"]
     }
