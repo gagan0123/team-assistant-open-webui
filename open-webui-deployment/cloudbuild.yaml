@@ -1,0 +1,30 @@
+options:
+  machineType: 'E2_HIGHCPU_8'
+  diskSizeGb: 100
+
+steps:
+# Step 1: Clone your specific repository and branch.
+- name: 'gcr.io/cloud-builders/git'
+  args: [
+    'clone',
+    '--branch', 'tf-main',
+    'https://github.com/mrrobot47/team-assistant-open-webui',
+    '--depth', '1',
+    './open-webui'
+    ]
+
+# Step 2: Build the Docker image from the cloned code.
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '--build-arg', 'BUILDPLATFORM=linux/amd64',
+    '--build-arg=USE_CUDA=false',
+    '--build-arg=USE_OLLAMA=false',
+    '-t',
+    '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE}:latest',
+    './open-webui'
+  ]
+  timeout: '1200s'
+
+images:
+- '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE}:latest'
