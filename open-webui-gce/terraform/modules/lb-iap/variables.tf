@@ -21,3 +21,13 @@ variable "support_email" {
   description = "The support email for the OAuth consent screen."
   type        = string
 }
+
+variable "oauth_client_id" {
+  description = "The OAuth client ID for the application."
+  type        = string
+}
+
+variable "oauth_client_secret" {
+  description = "The OAuth client secret for the application."
+  type        = string
+}

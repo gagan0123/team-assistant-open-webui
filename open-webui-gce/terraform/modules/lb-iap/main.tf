@@ -23,8 +23,8 @@ resource "google_compute_backend_service" "default" {
 
   # This is the magic: Enable IAP on this backend
   iap {
-    oauth2_client_id     = google_iap_client.default.client_id
-    oauth2_client_secret = google_iap_client.default.secret
+    oauth2_client_id     = var.oauth_client_id
+    oauth2_client_secret = var.oauth_client_secret
   }
 }
 
@@ -70,19 +70,6 @@ resource "google_compute_global_forwarding_rule" "default" {
 
 # --- IAP Configuration Resources ---
 
-# 8. IAP Brand: A one-time setup for the project to create the consent screen
-resource "google_iap_brand" "project_brand" {
-  project          = var.project_id
-  support_email    = var.support_email
-  application_title = "Open WebUI"
-}
-
-# 9. IAP Client: The OAuth client associated with the brand
-resource "google_iap_client" "default" {
-  display_name = "Open WebUI IAP Client"
-  brand        = google_iap_brand.project_brand.name
-}
-
 # 10. IAP Permissions: Grant access to the specified members
 resource "google_iap_web_backend_service_iam_member" "default" {
   for_each           = toset(var.iap_members)
@@ -91,6 +78,4 @@ resource "google_iap_web_backend_service_iam_member" "default" {
   role               = "roles/iap.httpsResourceAccessor"
   member             = each.key
 }
-
-
 

@@ -8,3 +8,6 @@ iap_members = [
   "group:your-group@example.com"
 ]
 support_email = "your-support-email@example.com"
+
+oauth_client_id = ""
+oauth_client_secret = ""

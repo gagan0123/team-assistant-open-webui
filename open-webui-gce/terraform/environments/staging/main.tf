@@ -53,4 +53,6 @@ module "lb_iap" {
   depends_on = [
     module.open_webui_vm
   ]
+  oauth_client_id     = var.oauth_client_id
+  oauth_client_secret = var.oauth_client_secret
 }
