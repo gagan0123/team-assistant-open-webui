@@ -20,6 +20,12 @@ resource "google_project_service" "default" {
 }
 
 # Call our new compute-engine module
+module "networking" {
+  source     = "../../modules/networking"
+  project_id = var.project_id
+  region     = var.region
+}
+
 module "open_webui_vm" {
   source                   = "../../modules/compute-engine"
   project_id               = var.project_id
@@ -31,7 +37,8 @@ module "open_webui_vm" {
   docker_compose_content   = "../../../assets/docker-compose.yml"
   image_uri                = "${var.region}-docker.pkg.dev/${var.project_id}/open-webui/app:latest"
   depends_on = [
-    google_project_service.default
+    google_project_service.default,
+    module.networking
   ]
 }
 

@@ -65,7 +65,8 @@ resource "google_compute_instance_group" "default" {
   project   = var.project_id
   zone      = var.zone
   name      = "${var.instance_name}-ig"
-  instances = [google_compute_instance.default.id]
+  instances = [google_compute_instance.default.self_link]
+
   named_port {
     name = "http"
     port = "8080"
