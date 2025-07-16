@@ -1,3 +1,10 @@
 project_id = "your-gcp-project-id"
 region     = "your-gcp-region"
 zone       = "your-gcp-zone"
+
+domain_name = "your-domain.com"
+iap_members = [
+  "user:your-email@example.com",
+  "group:your-group@example.com"
+]
+support_email = "your-support-email@example.com"
