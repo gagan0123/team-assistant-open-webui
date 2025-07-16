@@ -1,5 +1,4 @@
-output "instance_ip" {
-  description = "The external IP address of the GCE instance."
-  value       = google_compute_address.static.address
+output "instance_group_link" {
+  description = "The self_link of the instance group, to be used by the load balancer."
+  value       = google_compute_instance_group.default.self_link
 }
-

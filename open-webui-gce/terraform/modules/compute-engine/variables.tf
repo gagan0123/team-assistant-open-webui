@@ -12,7 +12,7 @@ variable "instance_name" {
 }
 variable "machine_type" {
   type    = string
-  default = "e2-medium"
+  default = "c2-standard-8"
 }
 variable "boot_disk_image" {
   type    = string

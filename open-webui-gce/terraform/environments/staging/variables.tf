@@ -31,3 +31,18 @@ variable "instance_name" {
   default     = "open-webui-staging-vm"
 }
 
+variable "domain_name" {
+  description = "The custom domain you will use for the application."
+  type        = string
+}
+
+variable "iap_members" {
+  description = "A list of members who will be granted access via IAP."
+  type        = list(string)
+  # Example: ["user:your-email@example.com", "group:your-team@example.com"]
+}
+
+variable "support_email" {
+  description = "The support email for the OAuth consent screen."
+  type        = string
+}
