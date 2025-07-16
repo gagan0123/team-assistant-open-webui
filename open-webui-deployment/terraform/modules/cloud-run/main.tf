@@ -4,11 +4,27 @@ resource "google_cloud_run_v2_service" "default" {
   location = var.region
   project  = var.project_id
 
+  ingress = "INGRESS_TRAFFIC_ALL" # Keep it publicly accessible
   template {
+    vpc_access {
+      connector = var.vpc_connector_id
+      egress    = "ALL_TRAFFIC"
+    }
+    volumes {
+      name = "data-volume"
+      nfs {
+        server    = var.filestore_ip_address
+        path      = "/${var.filestore_share_name}"
+        read_only = false
+      }
+    }
     service_account = var.service_account_email
     containers {
       image = var.image_uri
-
+      volume_mounts {
+        name       = "data-volume"
+        mount_path = "/app/backend/data"
+      }
       # Allocate resources. This is a good starting point.
       resources {
         limits = {
@@ -38,7 +54,7 @@ resource "google_cloud_run_v2_service" "default" {
       startup_probe {
         timeout_seconds   = 240
         period_seconds    = 240
-        failure_threshold = 1
+        failure_threshold = 5
         tcp_socket {
           port = 8080
         }
