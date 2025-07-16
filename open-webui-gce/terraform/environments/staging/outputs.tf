@@ -4,5 +4,5 @@ output "load_balancer_ip" {
 }
 output "application_url" {
   description = "The secure URL to access the Open WebUI application."
-  value       = "https://{var.domain_name}"
+  value       = "https://${var.domain_name}"
 }
