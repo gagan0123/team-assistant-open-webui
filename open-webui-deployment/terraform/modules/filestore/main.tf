@@ -10,6 +10,11 @@ resource "google_filestore_instance" "default" {
   networks {
     network = var.network_id
     modes   = ["MODE_IPV4"]
-    reserved_ip_range = "AUTO_RESERVED_IP_RANGE"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      networks,
+    ]
   }
 }
